@@ -102,6 +102,7 @@ jobs:
         run: |
           mkdir -p deploy
           # cp -r dist/* deploy/ 2>/dev/null || cp -r ./* deploy/
+          rsync -av --exclude='deploy' ./ diploy/
           cp package*.json deploy/
           cd deploy && npm ci --production
           tar -czf ../backend-deploy.tar.gz *
