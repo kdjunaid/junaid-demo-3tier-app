@@ -107,7 +107,7 @@ jobs:
           tar -czf ../backend-deploy.tar.gz *
       
       - name: Upload backend artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: backend-package
           path: ${{ env.BACKEND_DIR }}/backend-deploy.tar.gz
@@ -145,7 +145,7 @@ jobs:
         run: tar -czf frontend-deploy.tar.gz -C dist .
       
       - name: Upload frontend artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: frontend-package
           path: ${{ env.FRONTEND_DIR }}/frontend-deploy.tar.gz
