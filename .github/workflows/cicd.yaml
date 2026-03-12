@@ -8,7 +8,7 @@ on:
 
 env:
   NODE_VERSION: '20'
-  BACKEND_DIR: './Ostad-Capston-Backend'
+  BACKEND_DIR: './Ostad-Capstone-Backend'
   FRONTEND_DIR: './Ostad-Capstone-Frontend'
 
 jobs:
