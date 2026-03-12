@@ -101,7 +101,7 @@ jobs:
         working-directory: ${{ env.BACKEND_DIR }}
         run: |
           mkdir -p deploy
-          cp -r dist/* deploy/ 2>/dev/null || cp -r ./* deploy/
+          # cp -r dist/* deploy/ 2>/dev/null || cp -r ./* deploy/
           cp package*.json deploy/
           cd deploy && npm ci --production
           tar -czf ../backend-deploy.tar.gz *
