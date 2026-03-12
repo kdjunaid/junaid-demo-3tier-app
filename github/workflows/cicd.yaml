@@ -157,7 +157,7 @@ jobs:
   deploy:
     name: Deploy to Production
     needs: [build-backend, build-frontend]
-    runs-on: ubuntu-latest
+    runs-on: self-hosted, linux
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     
     steps:
