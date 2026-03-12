@@ -31,7 +31,7 @@ jobs:
           cache-dependency-path: Ostad-Capstone-Backend/package-lock.json
       
       - name: Install dependencies
-        working-directory: ${{ env.BACKEND_DIR }}
+        working-directory: Ostad-Capstone-Backend
         run: npm ci
       
       - name: Run linting
@@ -61,7 +61,7 @@ jobs:
           cache-dependency-path: Ostad-Capstone-Frontend/package-lock.json
       
       - name: Install dependencies
-        working-directory: ${{ env.FRONTEND_DIR }}
+        working-directory: Ostad-Capstone-Frontend
         run: npm ci
       
       - name: Run linting
