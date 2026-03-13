@@ -163,13 +163,13 @@ jobs:
     
     steps:
       - name: Download backend package
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v5
         with:
           name: backend-package
           path: backend-package
       
       - name: Download frontend package
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v5
         with:
           name: frontend-package
           path: frontend-package
