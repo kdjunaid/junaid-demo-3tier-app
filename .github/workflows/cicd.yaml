@@ -166,23 +166,25 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: backend-package
+          path: backend-package
       
       - name: Download frontend package
         uses: actions/download-artifact@v3
         with:
           name: frontend-package
+          path: frontend-package
       
       - name: Deploy to server
         run: |
-            echo "🚀 Starting deployment..."
+          echo "🚀 Starting deployment..."
+          
+          # Create temporary directory
+          mkdir -p /tmp/deploy
             
-            # Create temporary directory
-            mkdir -p /tmp/deploy
+          echo "📦 Preparing backend deployment..."
+          # Backend deployment will be handled by SCP
             
-            echo "📦 Preparing backend deployment..."
-            # Backend deployment will be handled by SCP
-            
-            echo "✅ Deployment preparation complete"
+          echo "✅ Deployment preparation complete"
       
       # - name: Copy backend to server
       #   uses: appleboy/scp-action@master
