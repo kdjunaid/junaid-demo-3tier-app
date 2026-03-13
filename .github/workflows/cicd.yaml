@@ -193,7 +193,7 @@ jobs:
       #     source: "backend-deploy.tar.gz"
       #     target: "/tmp/deploy"
 
-        name: Copy backend to server
+      - name: Copy backend to server
         run: |
           mkdir -p /tmp/deploy
           cp backend-deploy.tar.gz /tmp/deploy/
@@ -207,7 +207,7 @@ jobs:
       #     source: "frontend-deploy.tar.gz"
       #     target: "/tmp/deploy"
       
-        name: Copy frontend to server
+      - name: Copy frontend to server
         run: |
           mkdir -p /tmp/deploy
           cp frontend-deploy.tar.gz /tmp/deploy/
