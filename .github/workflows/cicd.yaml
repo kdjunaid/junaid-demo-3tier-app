@@ -138,7 +138,7 @@ jobs:
       - name: Build application
         working-directory: ${{ env.FRONTEND_DIR }}
         env:
-          VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL }}
+          VITE_API_BASE_URL: ${{ vars.VITE_API_BASE_URL }}
         run: npm run build
       
       - name: Create deployment package
@@ -158,7 +158,7 @@ jobs:
   deploy:
     name: Deploy to Production
     needs: [build-backend, build-frontend]
-    runs-on: self-hosted, linux
+    runs-on: demo-3tier-app-120326
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     
     steps:
@@ -173,12 +173,7 @@ jobs:
           name: frontend-package
       
       - name: Deploy to server
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
+        run: |
             echo "🚀 Starting deployment..."
             
             # Create temporary directory
@@ -189,24 +184,34 @@ jobs:
             
             echo "✅ Deployment preparation complete"
       
-      - name: Copy backend to server
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "backend-deploy.tar.gz"
-          target: "/tmp/deploy"
+      # - name: Copy backend to server
+      #   uses: appleboy/scp-action@master
+      #   with:
+      #     host: ${{ secrets.SERVER_HOST }}
+      #     username: ${{ secrets.SERVER_USER }}
+      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
+      #     source: "backend-deploy.tar.gz"
+      #     target: "/tmp/deploy"
+
+        name: Copy backend to server
+        run: |
+          mkdir -p /tmp/deploy
+          cp backend-deploy.tar.gz /tmp/deploy/
       
-      - name: Copy frontend to server
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "frontend-deploy.tar.gz"
-          target: "/tmp/deploy"
+      # - name: Copy frontend to server
+      #   uses: appleboy/scp-action@master
+      #   with:
+      #     host: ${{ secrets.SERVER_HOST }}
+      #     username: ${{ secrets.SERVER_USER }}
+      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
+      #     source: "frontend-deploy.tar.gz"
+      #     target: "/tmp/deploy"
       
+        name: Copy frontend to server
+        run: |
+          mkdir -p /tmp/deploy
+          cp frontend-deploy.tar.gz /tmp/deploy/
+
       - name: Finalize deployment
         uses: appleboy/ssh-action@master
         with:
