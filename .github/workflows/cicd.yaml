@@ -102,7 +102,7 @@ jobs:
         run: |
           mkdir -p deploy
           # cp -r dist/* deploy/ 2>/dev/null || cp -r ./* deploy/
-          rsync -av --exclude='deploy' ./ diploy/
+          rsync -av --exclude='deploy' ./ deploy/
           cp package*.json deploy/
           cd deploy && npm ci --production
           tar -czf ../backend-deploy.tar.gz *
@@ -196,7 +196,7 @@ jobs:
       - name: Copy backend to server
         run: |
           mkdir -p /tmp/deploy
-          cp backend-deploy.tar.gz /tmp/deploy/
+          cp backend-package/backend-deploy.tar.gz /tmp/deploy/
       
       # - name: Copy frontend to server
       #   uses: appleboy/scp-action@master
@@ -210,7 +210,7 @@ jobs:
       - name: Copy frontend to server
         run: |
           mkdir -p /tmp/deploy
-          cp frontend-deploy.tar.gz /tmp/deploy/
+          cp frontend-package/frontend-deploy.tar.gz /tmp/deploy/
 
       - name: Finalize deployment
         uses: appleboy/ssh-action@master
